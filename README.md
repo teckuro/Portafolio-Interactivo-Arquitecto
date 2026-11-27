@@ -2,12 +2,28 @@
 
 **Generador de portafolios de arquitectura tipo revista interactiva, guiado por leyes de UX.**
 
-> **Estado:** Fase 1 · Validación. **Todavía no hay código.**
+> **Estado:** primer prototipo navegable del caso E1 (adelanto de la Fase 3). La validación de la Fase 1 sigue abierta.
 > Este repositorio desglosa, paso a paso, cómo un programa debería convertir la **descripción** de un arquitecto/a (o estudiante) en una **plantilla de portafolio**, aplicando 15 leyes de UX adaptadas a la disciplina.
 
 ## Idea en una frase
 
 El arquitecto describe quién es, a quién le presenta el portafolio y qué proyectos tiene; el programa compone una **revista interactiva** (spreads navegables, exportable a PDF), se encarga del orden, la jerarquía, la grilla, las fichas y el peso, y verifica el resultado con reglas medibles.
+
+## Prototipo
+
+Revista interactiva del caso E1 (recién titulada que postula a oficinas). El contenido es ficticio y las imágenes son ilustraciones generadas como marcador de posición.
+
+```bash
+npm install
+npm run dev
+```
+
+- **Navegar:** flechas en pantalla, teclado (← → Inicio Fin), deslizar en pantallas táctiles, o la cota de navegación inferior.
+- **Cada página tiene su URL** (`#/7`), así que se puede compartir una página concreta.
+- **Descargar PDF:** el botón usa la impresión del navegador; cada spread sale como una hoja A3 horizontal.
+- **Verificación:** al abrir con `?verificar` en la URL aparece un botón con el resultado de las comprobaciones automáticas (`PK-V1`, `PS-V1`, `SIM-V4`…).
+
+Detalle de la arquitectura y de cómo cada ley se traduce en código: [docs/09-prototipo.md](docs/09-prototipo.md).
 
 ## Cómo leer este repositorio
 
@@ -22,6 +38,7 @@ El arquitecto describe quién es, a quién le presenta el portafolio y qué proy
 | 6 | [docs/06-decisiones-abiertas.md](docs/06-decisiones-abiertas.md) | Qué está decidido y qué falta decidir | 8 cerradas · 8 pendientes |
 | 7 | [docs/07-hoja-de-ruta.md](docs/07-hoja-de-ruta.md) | Fases hasta tener un programa funcionando | Borrador |
 | 8 | [docs/08-revista-interactiva.md](docs/08-revista-interactiva.md) | Formato revista: modelo de interacción, reglas `REV` e impacto en cada ley | Borrador |
+| 9 | [docs/09-prototipo.md](docs/09-prototipo.md) | Arquitectura del prototipo y trazabilidad leyes → código | Borrador |
 | F1 | [docs/fase-1/](docs/fase-1/README.md) | Validación: convocatorias reales, revistas, portafolios reales y ajustes | **En curso** |
 
 ## Convenciones

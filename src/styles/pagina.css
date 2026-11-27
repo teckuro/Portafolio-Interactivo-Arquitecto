@@ -1,0 +1,292 @@
+/*
+ * La página. Todas las medidas internas usan unidades de contenedor (cqw):
+ * una página se compone igual a cualquier tamaño, como un PDF, y la misma
+ * regla sirve para pantalla e impresión (REV-R1).
+ */
+
+.pagina {
+  position: relative;
+  flex: none;
+  width: var(--pagina-w);
+  height: var(--pagina-h);
+  overflow: hidden;
+  container-type: size;
+  background: var(--papel);
+  color: var(--texto);
+
+  --fs: 2.12cqw;
+  --fs-s: 1.66cqw;
+  --fs-xs: 1.44cqw;
+  --fs-lead: 3.05cqw;
+  --fs-seccion: 4.3cqw;
+  --fs-titulo: 7.6cqw;
+  --fs-perfil: 4cqw;
+  --burbuja: 2.5cqw;
+
+  --m-sup: 7cqw;
+  --m-inf: 11cqw;
+  --m-ext: 8cqw;
+  --m-int: 7cqw;
+  --col-gap: 2.6cqw;
+  --fila-gap: 1.5cqw;
+}
+
+.pagina--izq {
+  --m-izq: var(--m-ext);
+  --m-der: var(--m-int);
+}
+
+.pagina--der {
+  --m-izq: var(--m-int);
+  --m-der: var(--m-ext);
+}
+
+/* Retícula de 6 columnas × 12 módulos por página (EU-R1) */
+.reticula {
+  position: absolute;
+  inset: var(--m-sup) var(--m-der) var(--m-inf) var(--m-izq);
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+  gap: var(--fila-gap) var(--col-gap);
+}
+
+.reticula > * {
+  min-width: 0;
+  min-height: 0;
+}
+
+/* ---- Tipografía ----------------------------------------------------------- */
+
+.titulo-proyecto {
+  color: var(--tinta);
+  font-family: var(--f-rotulo);
+  font-size: var(--fs-titulo);
+  font-stretch: 125%;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.titulo-seccion {
+  color: var(--tinta);
+  font-size: var(--fs-seccion);
+  font-stretch: 125%;
+  font-weight: 330;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.titulo-cierre {
+  align-self: start;
+  color: var(--tinta);
+  font-size: calc(var(--fs-titulo) * 1.25);
+  font-stretch: 125%;
+  font-weight: 250;
+  letter-spacing: -0.025em;
+  line-height: 0.92;
+}
+
+.titulo-bloque {
+  margin-bottom: 0.6em;
+  color: var(--tinta);
+  font-size: var(--fs-s);
+  font-weight: 620;
+}
+
+.entradilla {
+  color: var(--tinta);
+  font-family: var(--f-lectura);
+  font-size: var(--fs-lead);
+  font-weight: 380;
+  line-height: 1.28;
+  text-wrap: pretty;
+}
+
+.texto p {
+  max-width: 74ch;
+  font-family: var(--f-lectura);
+  font-size: var(--fs);
+  line-height: 1.58;
+  hyphens: auto;
+  text-wrap: pretty;
+}
+
+.perfil {
+  align-self: start;
+  color: var(--tinta);
+  font-family: var(--f-lectura);
+  font-size: var(--fs-perfil);
+  font-weight: 340;
+  line-height: 1.26;
+  text-wrap: pretty;
+}
+
+.nota {
+  align-self: end;
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+}
+
+/* ---- Imágenes a sangre ------------------------------------------------------ */
+
+.sangre {
+  position: absolute;
+  inset: 0 0 auto;
+  height: var(--alto, 100%);
+  overflow: hidden;
+  background: #d9dad4;
+}
+
+.sangre__lienzo {
+  position: absolute;
+  inset: 0;
+}
+
+/* Una imagen de spread completo: cada página muestra su mitad (REV-R2). */
+.sangre--izq .sangre__lienzo,
+.sangre--der .sangre__lienzo {
+  width: 200%;
+}
+
+.sangre--der .sangre__lienzo {
+  left: -100%;
+}
+
+.sangre svg,
+.sangre img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Portada ---------------------------------------------------------------- */
+
+.portada {
+  position: absolute;
+  top: var(--m-sup);
+  left: var(--m-ext);
+  right: var(--m-int);
+}
+
+.portada__nombre {
+  color: var(--tinta);
+  font-size: 9.6cqw;
+  font-stretch: 125%;
+  font-weight: 280;
+  letter-spacing: -0.025em;
+  line-height: 0.9;
+  text-wrap: balance;
+}
+
+.portada__disciplina {
+  margin-top: 3cqw;
+  color: var(--tinta);
+  font-size: 2.3cqw;
+  font-weight: 450;
+  line-height: 1.3;
+}
+
+.portada__cabecera {
+  position: absolute;
+  top: var(--m-sup);
+  right: var(--m-ext);
+  color: var(--tinta);
+  font-size: 1.9cqw;
+  font-weight: 500;
+}
+
+/* ---- Folio: número de página como burbuja de eje + sección (RR-R2) ---------- */
+
+.folio {
+  position: absolute;
+  bottom: 4.4cqw;
+  display: flex;
+  align-items: center;
+  gap: 1.4cqw;
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+}
+
+.folio--izq {
+  left: var(--m-ext);
+}
+
+.folio--der {
+  right: var(--m-ext);
+  flex-direction: row-reverse;
+}
+
+.folio__numero {
+  display: grid;
+  place-items: center;
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--tinta);
+  font-variant-numeric: tabular-nums;
+  font-weight: 550;
+}
+
+.folio--sobre .folio__seccion {
+  padding: 0.4cqw 1cqw;
+  background: var(--papel);
+  color: var(--texto);
+}
+
+/* ---- Pies ------------------------------------------------------------------- */
+
+.pie {
+  display: flex;
+  gap: 1cqw;
+  align-items: flex-start;
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+  line-height: 1.38;
+}
+
+.pie__tipo {
+  color: var(--tinta);
+  font-weight: 620;
+}
+
+.pie__credito {
+  white-space: nowrap;
+}
+
+.pie--sobre {
+  position: absolute;
+  bottom: 10.4cqw;
+  max-width: 62%;
+  padding: 0.8cqw 1.2cqw;
+  background: color-mix(in srgb, var(--papel) 94%, transparent);
+  color: var(--texto);
+}
+
+.pie--abajo-izq {
+  left: var(--m-ext);
+}
+
+.pie--abajo-der {
+  right: var(--m-ext);
+}
+
+.burbuja {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: var(--burbuja);
+  height: var(--burbuja);
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--tinta);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}

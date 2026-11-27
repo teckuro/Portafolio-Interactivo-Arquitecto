@@ -2,7 +2,7 @@
 
 Avanzamos de lo conceptual a lo concreto. **No se escribe código hasta la Fase 3.**
 
-## Fase 0 · Definición ← *estamos aquí*
+## Fase 0 · Definición ✅
 
 - [x] Visión y alcance
 - [x] Audiencias (autor y lector)
@@ -12,17 +12,17 @@ Avanzamos de lo conceptual a lo concreto. **No se escribe código hasta la Fase 
 - [x] Descripción de entrada y casos de prueba iniciales
 - [x] Decisiones base cerradas: D1 (revista interactiva + PDF), D2 (spread √2:1), D3 (A2 → L1), D5, D8
 - [x] Formato revista interactiva desglosado (`08-revista-interactiva.md`)
-- [ ] Cerrar **D13** (modelo de interacción) y **D14** (transición)
+- [x] Cerrar **D13** (dobles páginas) y **D14** (transición sutil)
 
-**Criterio de salida:** D13 y D14 cerradas.
+**Criterio de salida:** cumplido.
 
-## Fase 1 · Validación con portafolios reales
+## Fase 1 · Validación con portafolios reales ← *estamos aquí* · ver [fase-1/](fase-1/README.md)
 
 - [ ] Reunir 5–10 portafolios reales (propios, de colegas o públicos) de distintos perfiles.
 - [ ] Analizar 3–5 **revistas de arquitectura** (aperturas de reportaje, fichas, sumarios, pies) y 2–3 **revistas digitales interactivas**: qué convenciones adoptar y qué evitar.
 - [ ] Puntuar cada uno con las verificaciones (`XX-V#`) en una planilla manual.
 - [ ] Ajustar los números (palabras, páginas, MB, ppi, proyectos) según lo observado.
-- [ ] Reunir 5–10 bases de convocatorias u ofertas reales para validar los presupuestos de `PK`.
+- [x] Reunir bases de convocatorias reales para validar los presupuestos de `PK` (12 programas; faltan ofertas laborales chilenas)
 - [ ] Identificar reglas que nadie cumple (¿son irreales?) y reglas que todos cumplen (¿sobran?).
 
 **Criterio de salida:** reglas con números validados; lista de reglas descartadas o fusionadas.
@@ -56,4 +56,4 @@ Avanzamos de lo conceptual a lo concreto. **No se escribe código hasta la Fase 
 
 ## Próximo paso sugerido
 
-Cerrar **D13** (modelo de interacción) y **D14** (transición) en `06-decisiones-abiertas.md`, y después empezar la Fase 1 con el análisis de revistas.
+Completar los frentes B (revistas) y C (portafolios reales) de la Fase 1. Ver [fase-1/README.md](fase-1/README.md).

@@ -11,6 +11,9 @@ Decisiones que hay que tomar **antes de codificar**. ✅ cerrada · ⏳ pendient
 | D3 | Perfil prioritario de v1 | ✅ **A2 recién titulado → L1 oficinas** | Caso E1 como caso principal |
 | D5 | ¿El sistema procesa planos? | ✅ **Solo ubicar y escalar** + advertencia de legibilidad | En pantalla, el plano se puede ampliar (DP) |
 | D8 | Forma de entrada | ✅ **Mixta**: texto libre inicial + preguntas guiadas | |
+| D13 | Modelo de interacción | ✅ **Dobles páginas paginadas** (spreads); en móvil, páginas simples con swipe. Sin flipbook | |
+| D7 | Repositorio | ✅ `teckuro/Portafolio-Interactivo-Arquitecto` | |
+| D14 | Transición entre spreads | ✅ **Deslizamiento sutil** ≤ 300 ms, desactivable y respetando `prefers-reduced-motion` | |
 
 ## Pendientes
 
@@ -18,13 +21,10 @@ Decisiones que hay que tomar **antes de codificar**. ✅ cerrada · ⏳ pendient
 |----|----------|----------|---------------|---------|
 | D4 | Orden por defecto | Relevancia · Cronológico | **Relevancia**, con la cronología como opción | PS, PF |
 | D6 | Idiomas | ES · ES + EN | **ES + EN**: muchas postulaciones son al extranjero | Textos de la plantilla |
-| D7 | Nombre y visibilidad del repo | — | `portafolio-arquitectura-ux`, privado mientras esté en definición | — |
 | D9 | Créditos y rol | Obligatorios · Ocultables con advertencia | **Ocultables con advertencia** (DEF-R5) | Ética |
 | D10 | Legibilidad de planos raster | Escala declarada · OCR · Advertencia manual | **Escala declarada** | CC-R6 |
 | D11 | Marcar cortes y vistas en planta | v1 · Más adelante | **v1, en versión simple**: el formato interactivo lo vuelve muy valioso (CU activas) | RR-R4, CU-R2 |
 | D12 | Estilos de plantilla | 1 · 2 · 3+ | **2** (sobrio y editorial) | EU-R5 |
-| D13 | Modelo de interacción | M1 flipbook · M2 spreads paginados · M3 scroll editorial | **M2 híbrido** (spreads en escritorio, páginas + swipe en móvil, sin flipbook) | Todo el formato |
-| D14 | Transición entre spreads | Ninguna · Deslizamiento sutil · Paso de página 3D | **Deslizamiento sutil** ≤ 300 ms, desactivable | CC, PK, accesibilidad |
 | D15 | Publicación | Archivo/link para compartir · Web pública con dominio | **Link para compartir** en v1; dominio propio en v2 | Alcance (hosting) |
 | D16 | Analítica de lectura | No · Sí (opt-in) | **No en v1** | Privacidad, complejidad |
 

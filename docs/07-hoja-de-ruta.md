@@ -16,7 +16,7 @@ Avanzamos de lo conceptual a lo concreto. **No se escribe código hasta la Fase 
 
 **Criterio de salida:** cumplido.
 
-## Fase 1 · Validación con portafolios reales ← *estamos aquí* · ver [fase-1/](fase-1/README.md)
+## Fase 1 · Validación con portafolios reales ← *en curso, en paralelo al prototipo* · ver [fase-1/](fase-1/README.md)
 
 - [ ] Reunir 5–10 portafolios reales (propios, de colegas o públicos) de distintos perfiles.
 - [ ] Analizar 3–5 **revistas de arquitectura** (aperturas de reportaje, fichas, sumarios, pies) y 2–3 **revistas digitales interactivas**: qué convenciones adoptar y qué evitar.
@@ -39,10 +39,12 @@ Avanzamos de lo conceptual a lo concreto. **No se escribe código hasta la Fase 
 
 **Criterio de salida:** con la especificación, se puede componer **a mano** el caso E1 y obtener el resultado que el programa debería producir.
 
-## Fase 3 · Prototipo de plantilla (primer código)
+## Fase 3 · Prototipo de plantilla (primer código) — *adelantado*
 
-- Plantilla estática del caso E1 en el formato de salida elegido.
-- Verificaciones manuales sobre el prototipo.
+- [x] Revista interactiva del caso E1: 10 spreads, escritorio, tablet y teléfono, exportación a PDF A3 ([09-prototipo.md](09-prototipo.md)).
+- [x] Compositor con orden por relevancia y presupuestos; 9 verificaciones automáticas.
+- [ ] Reemplazar las ilustraciones por imágenes reales de un portafolio.
+- [ ] Revisión por una persona (control independiente que faltó en la Fase 1).
 
 ## Fase 4 · Generador
 

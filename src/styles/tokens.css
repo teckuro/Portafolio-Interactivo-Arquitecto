@@ -1,0 +1,42 @@
+/*
+ * Tokens de diseño.
+ * Papel blanco frío, tinta negra y un único acento: el amarillo destacador con
+ * que los arquitectos marcan las copias de planos. Se usa solo como resaltado
+ * (posición actual, llamadas enlazadas, foco), nunca como color de texto.
+ */
+:root {
+  --papel: #fbfbf8;
+  --tinta: #000;
+  --texto: #2e2f2d;
+  --texto-2: #63645f;
+  --filete: #d2d3cd;
+  --resaltador: #ffe14d;
+
+  /* La mesa sobre la que se apoya la revista (cambia con el tema; el papel no, EU-R6). */
+  --mesa: #e3e4df;
+  --mesa-texto: #1d1e1f;
+  --mesa-texto-2: #5c5e5f;
+  --mesa-linea: #1d1e1f;
+
+  --f-rotulo: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-lectura: 'Newsreader', Georgia, 'Times New Roman', serif;
+
+  --dur: 280ms;
+  --curva: cubic-bezier(0.25, 0.7, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --mesa: #232528;
+    --mesa-texto: #ecebe6;
+    --mesa-texto-2: #a2a4a1;
+    --mesa-linea: #ecebe6;
+  }
+}
+
+:root[data-theme='dark'] {
+  --mesa: #232528;
+  --mesa-texto: #ecebe6;
+  --mesa-texto-2: #a2a4a1;
+  --mesa-linea: #ecebe6;
+}

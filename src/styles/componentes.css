@@ -1,0 +1,756 @@
+/* ---- Figura ---------------------------------------------------------------- */
+
+.figura {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 0.9cqw;
+  outline: 0 solid var(--resaltador);
+  transition: outline-width 140ms;
+}
+
+.figura__arte {
+  position: relative;
+  min-height: 0;
+  overflow: hidden;
+  background: #e7e7e2;
+}
+
+.figura--tecnica .figura__arte {
+  background: #fff;
+}
+
+.figura__arte > svg,
+.figura__arte > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.figura__ampliar {
+  position: absolute;
+  right: 0.9cqw;
+  bottom: 0.9cqw;
+  display: grid;
+  place-items: center;
+  width: 3.6cqw;
+  height: 3.6cqw;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 0;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.figura__ampliar svg {
+  width: 62%;
+  height: 62%;
+}
+
+.figura__ampliar:hover {
+  background: var(--resaltador);
+}
+
+/* Llamadas enlazadas planta ↔ figura (CU-R2) */
+.figura[data-llamada] {
+  cursor: pointer;
+}
+
+.figura.esta-enlazada {
+  outline-width: 0.7cqw;
+}
+
+.figura.esta-enlazada .burbuja {
+  background: var(--resaltador);
+}
+
+/* ---- Dibujos SVG ------------------------------------------------------------ */
+
+.eje {
+  stroke: #000;
+  stroke-width: 0.8;
+  stroke-dasharray: 14 4 2 4;
+}
+
+.eje__burbuja {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.2;
+}
+
+.eje__texto,
+.rotulo {
+  fill: #000;
+  font-family: var(--f-rotulo);
+  font-weight: 500;
+}
+
+.eje__texto {
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+.llamada {
+  cursor: pointer;
+  outline: none;
+}
+
+.llamada__fondo {
+  fill: #fff;
+  stroke: #000;
+  stroke-width: 1.6;
+}
+
+.llamada__cono {
+  fill: rgb(0 0 0 / 0.08);
+  stroke: #000;
+  stroke-width: 1;
+}
+
+.llamada.esta-enlazada .llamada__fondo,
+.llamada:focus-visible .llamada__fondo {
+  fill: var(--resaltador);
+}
+
+.llamada.esta-enlazada .llamada__cono,
+.llamada:focus-visible .llamada__cono {
+  fill: var(--resaltador);
+  fill-opacity: 0.85;
+}
+
+/* ---- Ficha técnica (SIM-R4) -------------------------------------------------- */
+
+.ficha {
+  align-self: end;
+  font-size: var(--fs-s);
+}
+
+.ficha[data-columnas='2'] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--col-gap);
+  align-self: end;
+}
+
+.ficha__fila {
+  display: grid;
+  grid-template-columns: 34% 1fr;
+  gap: 1cqw;
+  padding: 0.55cqw 0;
+  border-top: 1px solid var(--filete);
+}
+
+.ficha dt {
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+  line-height: 1.5;
+}
+
+.ficha dd {
+  color: var(--tinta);
+  line-height: 1.32;
+}
+
+.ficha__fila--rol dd {
+  font-weight: 620;
+}
+
+.estado {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+
+.estado__marca {
+  display: inline-block;
+  flex: none;
+  width: 0.85em;
+  height: 0.85em;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+}
+
+.estado--concurso .estado__marca {
+  background: linear-gradient(90deg, var(--tinta) 50%, transparent 50%);
+}
+
+.estado--en-desarrollo .estado__marca {
+  border-style: dashed;
+}
+
+.estado--construido .estado__marca {
+  background: var(--tinta);
+}
+
+/* ---- Leyendas ---------------------------------------------------------------- */
+
+.leyenda {
+  align-content: start;
+  font-size: var(--fs-xs);
+}
+
+.leyenda[data-columnas='2'] {
+  columns: 2;
+  column-gap: var(--col-gap);
+}
+
+.leyenda[data-columnas='3'] {
+  columns: 3;
+  column-gap: var(--col-gap);
+}
+
+.leyenda li {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  padding: 0.35cqw 0;
+  break-inside: avoid;
+}
+
+.leyenda--detalle li {
+  align-items: flex-start;
+  padding: 0.7cqw 0;
+  border-top: 1px solid var(--filete);
+  line-height: 1.35;
+}
+
+/* ---- Datos, aportes, trayectoria -------------------------------------------- */
+
+.datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-content: end;
+  gap: 1.8cqw var(--col-gap);
+}
+
+.datos dt {
+  margin-bottom: 0.3em;
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+}
+
+.datos dd {
+  color: var(--tinta);
+  font-size: var(--fs-s);
+  line-height: 1.4;
+}
+
+.datos a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+.aportes {
+  align-self: end;
+}
+
+.aportes li {
+  padding: 0.75cqw 0;
+  border-top: 1px solid var(--filete);
+  color: var(--tinta);
+  font-family: var(--f-lectura);
+  font-size: var(--fs);
+  line-height: 1.35;
+}
+
+/* Línea continua de tiempo (CU-R3) */
+.trayectoria {
+  position: relative;
+  align-self: start;
+  margin-left: 0.6cqw;
+  padding-left: 3.2cqw;
+  border-left: 1px solid var(--tinta);
+}
+
+.trayectoria__grupo + .trayectoria__grupo {
+  margin-top: 2.4cqw;
+}
+
+.trayectoria__grupo > .titulo-bloque {
+  position: relative;
+}
+
+.trayectoria__grupo > .titulo-bloque::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -3.2cqw;
+  width: 1.4cqw;
+  height: 1.4cqw;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--tinta);
+  transform: translate(-50%, -50%);
+}
+
+.trayectoria__hito {
+  position: relative;
+  display: grid;
+  grid-template-columns: 11cqw 1fr;
+  gap: var(--col-gap);
+  padding: 0.6cqw 0;
+  font-size: var(--fs-s);
+  line-height: 1.4;
+}
+
+.trayectoria__hito::before {
+  content: '';
+  position: absolute;
+  top: 1.2cqw;
+  left: -3.2cqw;
+  width: 1cqw;
+  height: 1cqw;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  transform: translate(-50%, -50%);
+}
+
+.trayectoria__periodo {
+  color: var(--texto-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.trayectoria strong {
+  color: var(--tinta);
+  font-weight: 600;
+}
+
+/* ---- Índice visual (RR-R1) --------------------------------------------------- */
+
+.indice {
+  display: flex;
+  flex-direction: column;
+}
+
+.indice__item {
+  display: grid;
+  grid-template-columns: 31% 1fr;
+  gap: 2.2cqw;
+  padding: 1.5cqw 0;
+  border-top: 1px solid var(--filete);
+  color: inherit;
+  text-decoration: none;
+}
+
+.indice__item--simple {
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  padding: 1.1cqw 0;
+}
+
+.indice__mini {
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #e7e7e2;
+}
+
+.indice__mini svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.indice__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6cqw;
+}
+
+.indice__nombre {
+  color: var(--tinta);
+  font-size: calc(var(--fs-lead) * 0.88);
+  font-stretch: 112%;
+  font-weight: 450;
+  line-height: 1.1;
+}
+
+.indice__sintesis {
+  font-family: var(--f-lectura);
+  font-size: var(--fs-s);
+  line-height: 1.35;
+}
+
+.indice__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.6em;
+  color: var(--texto-2);
+  font-size: var(--fs-xs);
+}
+
+.indice__item:hover .indice__nombre {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.indice__item:hover .indice__mini {
+  outline: 0.5cqw solid var(--resaltador);
+}
+
+/* ---- Botones ------------------------------------------------------------------ */
+
+.acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: start;
+  align-items: center;
+  gap: 1.4cqw;
+}
+
+.acciones--cierre {
+  align-content: start;
+}
+
+.boton {
+  display: inline-flex;
+  align-items: center;
+  padding: 1.05cqw 2.1cqw;
+  border: 1px solid var(--tinta);
+  border-radius: 999px;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--f-rotulo);
+  font-size: var(--fs-s);
+  font-weight: 550;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: background-color 140ms;
+}
+
+.boton:hover {
+  background: var(--resaltador);
+}
+
+.boton--primario {
+  background: var(--tinta);
+  color: var(--papel);
+}
+
+.boton--primario:hover {
+  color: var(--tinta);
+}
+
+.boton--texto {
+  border-color: transparent;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.boton--barra {
+  padding: 7px 14px;
+  border-color: var(--mesa-texto-2);
+  background: transparent;
+  color: var(--mesa-texto);
+  font-size: 13.5px;
+}
+
+.boton--barra:hover {
+  border-color: var(--tinta);
+  color: var(--tinta);
+}
+
+/* ---- Diálogos ----------------------------------------------------------------- */
+
+.dialogo {
+  width: min(1180px, 94vw);
+  max-width: none;
+  max-height: 92dvh;
+  padding: 0;
+  border: none;
+  background: var(--papel);
+  color: var(--texto);
+
+  --fs: 16px;
+  --fs-s: 14px;
+  --fs-xs: 12.5px;
+  --fs-lead: 19px;
+  --fs-seccion: 30px;
+  --burbuja: 26px;
+  --col-gap: 20px;
+}
+
+.dialogo::backdrop {
+  background: rgb(20 22 24 / 0.6);
+}
+
+.dialogo__cuerpo {
+  max-height: 92dvh;
+  padding: 30px 32px 32px;
+  overflow: auto;
+}
+
+.dialogo__cuerpo > .titulo-seccion {
+  margin: 0 56px 22px 0;
+}
+
+.dialogo__cerrar {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--tinta);
+}
+
+.dialogo__cerrar svg {
+  width: 18px;
+}
+
+.dialogo__cerrar:hover {
+  background: var(--resaltador);
+}
+
+.dialogo--lateral {
+  width: min(480px, 100vw);
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0 0 0 auto;
+}
+
+.dialogo--lateral .dialogo__cuerpo {
+  max-height: 100dvh;
+}
+
+.indice--dialogo .indice__item {
+  padding: 14px 0;
+  gap: 16px;
+}
+
+.indice--dialogo .indice__texto {
+  gap: 6px;
+}
+
+.ampliacion {
+  display: grid;
+  gap: 12px;
+}
+
+.ampliacion__arte {
+  height: min(72dvh, 760px);
+  overflow: auto;
+  background: #fff;
+}
+
+.ampliacion__arte > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ampliacion__arte[data-zoom='si'] > svg {
+  width: 230%;
+  height: 230%;
+}
+
+.dialogo .acciones {
+  margin-top: 14px;
+  gap: 10px;
+}
+
+.dialogo .boton {
+  padding: 9px 18px;
+}
+
+/* Proceso como secuencia conectada (CU-R1) */
+.proceso {
+  display: flex;
+  gap: 32px;
+  padding: 4px 0 18px;
+  overflow-x: auto;
+}
+
+.proceso__paso {
+  position: relative;
+  flex: 1 0 220px;
+}
+
+.proceso__paso:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: calc(var(--burbuja) / 2);
+  left: calc(var(--burbuja) + 8px);
+  right: -32px;
+  border-top: 1px solid var(--tinta);
+}
+
+.proceso__arte {
+  margin: 12px 0 10px;
+  aspect-ratio: var(--proporcion);
+  overflow: hidden;
+  background: #fff;
+}
+
+.proceso__arte > svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.verificacion {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.verificacion th,
+.verificacion td {
+  padding: 9px 8px 9px 0;
+  border-top: 1px solid var(--filete);
+  text-align: left;
+  vertical-align: top;
+}
+
+.verificacion td:first-child {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.verificacion .es-falla td:last-child {
+  background: var(--resaltador);
+}
+
+/* ---- Modo de lectura vertical (teléfonos) ------------------------------------- */
+
+@media screen {
+  .revista[data-fluida] .pagina {
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    --fs: 16px;
+    --fs-s: 14px;
+    --fs-xs: 12.5px;
+    --fs-lead: 20px;
+    --fs-seccion: 28px;
+    --fs-titulo: 40px;
+    --fs-perfil: 22px;
+    --burbuja: 24px;
+    --col-gap: 16px;
+    --fila-gap: 16px;
+  }
+
+  .revista[data-fluida] .reticula {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 28px 20px 88px;
+  }
+
+  .revista[data-fluida] .figura__arte,
+  .revista[data-fluida] .figura__arte > svg {
+    aspect-ratio: var(--proporcion);
+    height: auto;
+  }
+
+  .revista[data-fluida] .pagina--sangre-parcial .sangre {
+    position: relative;
+    height: 52dvh;
+  }
+
+  .revista[data-fluida] .folio {
+    bottom: 18px;
+  }
+
+  /* En páginas que se desplazan, el folio cierra el contenido en vez de flotar encima */
+  .revista[data-fluida] .pagina:not(.pagina--sangre) .folio {
+    position: static;
+    padding: 0 20px 28px;
+  }
+
+  .revista[data-fluida] .pagina:not(.pagina--sangre) .reticula {
+    padding-bottom: 28px;
+  }
+
+  .revista[data-fluida] .folio__numero {
+    width: 30px;
+    height: 30px;
+  }
+
+  .revista[data-fluida] .portada__nombre {
+    font-size: 44px;
+  }
+
+  .revista[data-fluida] .portada__disciplina {
+    font-size: 16px;
+  }
+
+  .revista[data-fluida] .pie--sobre {
+    bottom: 64px;
+    left: 16px;
+    right: 16px;
+    max-width: none;
+  }
+
+  .revista[data-fluida] .portada,
+  .revista[data-fluida] .portada__cabecera {
+    left: 20px;
+    right: 20px;
+    top: 28px;
+  }
+
+  .revista[data-fluida] .portada__cabecera {
+    left: auto;
+    font-size: 14px;
+  }
+
+  .revista[data-fluida] .indice__item {
+    gap: 14px;
+    padding: 14px 0;
+  }
+
+  .revista[data-fluida] .trayectoria {
+    padding-left: 20px;
+  }
+
+  .revista[data-fluida] .trayectoria__grupo > .titulo-bloque::before,
+  .revista[data-fluida] .trayectoria__hito::before {
+    left: -20px;
+    width: 9px;
+    height: 9px;
+  }
+
+  .revista[data-fluida] .trayectoria__hito {
+    grid-template-columns: 76px 1fr;
+  }
+
+  .revista[data-fluida] .trayectoria__hito::before {
+    top: 15px;
+  }
+
+  .revista[data-fluida] .ficha__fila {
+    padding: 6px 0;
+    gap: 10px;
+  }
+
+  .revista[data-fluida] .ficha[data-columnas='2'],
+  .revista[data-fluida] .datos {
+    grid-template-columns: 1fr;
+  }
+
+  .revista[data-fluida] .boton {
+    padding: 10px 18px;
+  }
+
+  .revista[data-fluida] .figura__ampliar {
+    width: 36px;
+    height: 36px;
+  }
+
+  .revista[data-fluida] .titulo-cierre {
+    font-size: 48px;
+  }
+}

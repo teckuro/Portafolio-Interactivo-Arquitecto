@@ -24,6 +24,7 @@ src/content           src/core       Spread[]    src/layouts     src/ui
 | `src/drawings/` | Plantas desde datos, cortes, detalle, diagrama e ilustraciones SVG | Fábrica (`renderArte`) |
 | `src/ui/revista.ts` | Estado único (página + modo) del que se deriva todo lo demás | Controlador |
 | `src/ui/gestos.ts` | Teclado y deslizamiento → `siguiente()` / `anterior()` | Adaptadores |
+| `src/ui/modelo3d.ts` | Maqueta 3D de la portada (three.js, cargado aparte solo si hace falta) | Componente aislado con interfaz mínima (`separar`, `resaltar`) |
 | `src/ui/dialogos.ts` | Ampliar, proceso, contenido y verificación con `<dialog>` nativo | Vistas modales |
 | `src/styles/` | Tokens, chrome, página (unidades de contenedor), componentes, impresión | Tokens de diseño |
 
@@ -49,6 +50,18 @@ Para un portafolio nuevo solo hay que escribir un archivo en `src/content/`: el 
 | Usuario activo | Navegación sin instrucciones; el primer clic ya muestra contenido |
 | Conexión uniforme | Llamadas planta ↔ figura que se destacan juntas; proceso conectado; trayectoria como línea continua |
 | Formato revista (`REV`) | Spread √2:1, lomo virtual, URL por página, texto real (no imagen), exportación A3, sin movimiento si el sistema lo pide |
+
+## Portada con modelo 3D
+
+Si el proyecto pico trae un `modelo` (pisos, volúmenes, núcleo y terreno en metros), la portada muestra una maqueta interactiva en vez de una imagen:
+
+- **Página 1:** maqueta blanca con aristas en tinta, en axonometría (cámara ortográfica), con sombras de estudio. Se gira arrastrando; el botón "Separar pisos" la convierte en axonometría explotada.
+- **Página 2:** nombre del proyecto, síntesis y la lista de pisos de arriba hacia abajo, como en un corte. Cada fila está enlazada con su piso en el modelo (CU-R2).
+- **Movimiento:** un único momento coreografiado (los pisos se apilan al abrir); sin él si el sistema pide reducir el movimiento.
+- **Respaldo:** sin WebGL se muestra la imagen del proyecto; en el PDF el modelo se imprime como imagen fija.
+- **Peso:** three.js va en un archivo aparte (~126 KB comprimido) que se descarga solo si la portada lo usa.
+
+El modelo se describe con datos, no se modela a mano: cambiar alturas o desplazamientos en `src/content/` cambia la maqueta.
 
 ## Decisiones técnicas
 

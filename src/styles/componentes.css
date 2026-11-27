@@ -621,6 +621,114 @@
   background: var(--resaltador);
 }
 
+/* ---- Portada con modelo 3D ------------------------------------------------------ */
+
+.modelo3d {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 85% at 50% 58%, #f7f7f3 0%, #e7e7e1 62%, #d9d9d2 100%);
+}
+
+.modelo3d > canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.modelo3d > canvas:active {
+  cursor: grabbing;
+}
+
+.modelo3d--respaldo > svg {
+  width: 100%;
+  height: 100%;
+}
+
+.modelo3d__etiquetas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.modelo3d__piso {
+  display: grid;
+  place-items: center;
+  width: 2.8cqw;
+  height: 2.8cqw;
+  min-width: 20px;
+  min-height: 20px;
+  border: 1px solid var(--tinta);
+  border-radius: 50%;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--f-rotulo);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
+.modelo3d__piso.es-activa {
+  background: var(--resaltador);
+}
+
+.modelo3d__controles {
+  position: absolute;
+  right: var(--m-int);
+  bottom: 6cqw;
+  left: var(--m-ext);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2cqw;
+}
+
+.modelo3d__controles .boton[aria-pressed='true'] {
+  background: var(--resaltador);
+}
+
+.portada__anio {
+  color: var(--tinta);
+  font-size: var(--fs-s);
+  font-weight: 500;
+}
+
+.antetitulo {
+  margin-bottom: 1.4cqw;
+  color: var(--texto-2);
+  font-size: var(--fs-s);
+}
+
+.pisos {
+  align-self: end;
+}
+
+.pisos__item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.6cqw;
+  padding: 0.9cqw 0;
+  border-top: 1px solid var(--filete);
+  color: var(--tinta);
+  font-size: var(--fs-s);
+  cursor: default;
+  outline: none;
+}
+
+.pisos__altura {
+  color: var(--texto-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.pisos__item.esta-enlazada {
+  background: linear-gradient(90deg, color-mix(in srgb, var(--resaltador) 55%, transparent), transparent 85%);
+}
+
+.pisos__item.esta-enlazada .burbuja,
+.pisos__item:focus-visible .burbuja {
+  background: var(--resaltador);
+}
+
 /* ---- Modo de lectura vertical (teléfonos) ------------------------------------- */
 
 @media screen {
@@ -752,5 +860,20 @@
 
   .revista[data-fluida] .titulo-cierre {
     font-size: 48px;
+  }
+
+  .revista[data-fluida] .modelo3d__controles {
+    right: 16px;
+    bottom: 20px;
+    left: 16px;
+  }
+
+  .revista[data-fluida] .modelo3d__piso {
+    font-size: 12px;
+  }
+
+  .revista[data-fluida] .pisos__item {
+    padding: 10px 0;
+    gap: 12px;
   }
 }

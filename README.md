@@ -11,7 +11,12 @@ El arquitecto describe quién es, a quién le presenta el portafolio y qué proy
 
 ## Prototipo
 
-Revista interactiva del caso E1 (recién titulada que postula a oficinas). El contenido es ficticio y las imágenes son ilustraciones generadas como marcador de posición.
+Revista interactiva con dos portafolios de ejemplo, ambos de recién tituladas que postulan a oficinas. El contenido es ficticio y las imágenes son ilustraciones generadas como marcador de posición.
+
+| Portafolio | URL | Proyecto de título |
+|------------|-----|--------------------|
+| Catalina Garate Rojas (por defecto) | `/` | Centro Cultural Estación, 5 pisos, con **modelo 3D interactivo en la portada** |
+| Isidora Lagos Fuentes (caso E1) | `/?portafolio=e1` | Vivienda colectiva en pendiente |
 
 ```bash
 npm install
@@ -20,6 +25,7 @@ npm run dev
 
 - **Navegar:** flechas en pantalla, teclado (← → Inicio Fin), deslizar en pantallas táctiles, o la cota de navegación inferior.
 - **Cada página tiene su URL** (`#/7`), así que se puede compartir una página concreta.
+- **Modelo 3D (portada de Catalina):** arrastrar para girarlo, "Separar pisos" para la axonometría explotada; al apuntar un piso en el modelo o en la lista de la página 2, ambos se destacan.
 - **Descargar PDF:** el botón usa la impresión del navegador; cada spread sale como una hoja A3 horizontal.
 - **Verificación:** al abrir con `?verificar` en la URL aparece un botón con el resultado de las comprobaciones automáticas (`PK-V1`, `PS-V1`, `SIM-V4`…).
 

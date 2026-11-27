@@ -133,3 +133,73 @@ export function diagramaPendiente(): string {
   });
   return svg('0 0 1500 460', partes.join(''), { etiqueta: 'Diagrama de estrategia en tres pasos', clase: 'dibujo dibujo--diagrama' });
 }
+
+/** Corte del centro cultural: cinco pisos desplazados, auditorio y terraza. */
+export function corteCultural(): string {
+  const id = uid('cc');
+  const partes: string[] = [`<defs>${patrones(id)}</defs>`];
+  const suelo = 650;
+  partes.push(`<rect x="0" y="${suelo}" width="1600" height="110" fill="url(#${id}-tierra)"/><line x1="0" y1="${suelo}" x2="1600" y2="${suelo}" stroke="#000" stroke-width="2.4"/>`);
+  // [x0, x1, alto] de abajo hacia arriba (1 m = 20 unidades)
+  const pisos: [number, number, number, string][] = [
+    [380, 1000, 100, 'Hall'],
+    [260, 940, 140, 'Auditorio'],
+    [460, 1280, 90, 'Exposiciones'],
+    [320, 1020, 90, 'Talleres'],
+    [420, 860, 90, 'Biblioteca'],
+  ];
+  let y = suelo;
+  pisos.forEach(([x0, x1, h], i) => {
+    const techo = y - h;
+    partes.push(`<rect x="${x0}" y="${techo}" width="${x1 - x0}" height="12" fill="#000"/>`);
+    if (i === 0) {
+      // Planta libre vidriada
+      partes.push(`<line x1="${x0 + 4}" y1="${techo + 12}" x2="${x0 + 4}" y2="${y}" stroke="#000" stroke-width="1"/><line x1="${x0 + 10}" y1="${techo + 12}" x2="${x0 + 10}" y2="${y}" stroke="#000" stroke-width="1"/>`);
+      partes.push(`<line x1="${x1 - 4}" y1="${techo + 12}" x2="${x1 - 4}" y2="${y}" stroke="#000" stroke-width="1"/><line x1="${x1 - 10}" y1="${techo + 12}" x2="${x1 - 10}" y2="${y}" stroke="#000" stroke-width="1"/>`);
+    } else {
+      partes.push(`<rect x="${x0}" y="${techo}" width="12" height="${h}" fill="#000"/><rect x="${x1 - 12}" y="${techo}" width="12" height="${h}" fill="#000"/>`);
+    }
+    if (i === 1) {
+      // Graderías del auditorio
+      const g: [number, number][] = [];
+      for (let k = 0; k < 10; k++) g.push([x0 + 60 + k * 50, y - 12 - k * 9], [x0 + 110 + k * 50, y - 12 - k * 9]);
+      partes.push(`<polyline points="${pts(g)}" fill="none" stroke="#000" stroke-width="2"/>`);
+      partes.push(`<rect x="${x0 + 40}" y="${techo + 40}" width="16" height="${h - 52}" fill="none" stroke="#000" stroke-width="1.4"/>`);
+    }
+    partes.push(nivel(x0 - 14, y, `+${((suelo - y) / 20).toFixed(2).replace('.', ',')}`));
+    partes.push(persona(x0 + 90 + i * 40, y));
+    y = techo;
+  });
+  partes.push(nivel(406, y, `+${((suelo - y) / 20).toFixed(2).replace('.', ',')}`));
+  // Losa de cubierta, terraza mirador y núcleo
+  partes.push(`<rect x="420" y="${y - 12}" width="440" height="12" fill="#000"/>`);
+  partes.push(`<rect x="860" y="${y + 78}" width="240" height="12" fill="#000"/><line x1="1100" y1="${y + 78}" x2="1100" y2="${y + 50}" stroke="#000" stroke-width="2"/><line x1="860" y1="${y + 50}" x2="1100" y2="${y + 50}" stroke="#000" stroke-width="1.4"/>`);
+  partes.push(persona(1000, y + 78));
+  partes.push(`<rect x="680" y="${y - 40}" width="80" height="${suelo - y + 40}" fill="url(#${id}-hormigon)" stroke="#000" stroke-width="2"/>`);
+  // Escalera pública exterior en elevación
+  const esc: [number, number][] = [];
+  for (let k = 0; k < 6; k++) esc.push([k % 2 ? 1300 : 1460, suelo - k * 82], [k % 2 ? 1460 : 1300, suelo - (k + 1) * 82]);
+  partes.push(`<polyline points="${pts(esc)}" fill="none" stroke="#000" stroke-width="1" stroke-dasharray="6 5"/>`);
+  return svg('0 0 1600 760', partes.join(''), { etiqueta: 'Corte A-A del centro cultural de cinco pisos', clase: 'dibujo dibujo--tecnico' });
+}
+
+/** Diagrama de estrategia: reunir, apilar y desplazar (CU-R1). */
+export function diagramaApilado(): string {
+  const partes: string[] = [];
+  const caja = (x: number, y: number, w: number, h: number) => `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#fff" stroke="#000" stroke-width="3"/>`;
+  [0, 540, 1080].forEach((ox, i) => {
+    partes.push(`<line x1="${ox + 10}" y1="410" x2="${ox + 420}" y2="410" stroke="#000" stroke-width="2"/>`);
+    if (i === 0) {
+      for (let k = 0; k < 5; k++) partes.push(caja(ox + 20 + k * 78, 350, 70, 60));
+    } else {
+      const desplazamientos = i === 1 ? [0, 0, 0, 0, 0] : [0, -40, 50, -20, 20];
+      for (let k = 0; k < 5; k++) partes.push(caja(ox + 130 + desplazamientos[k], 350 - k * 62, 170, 60));
+      if (i === 2) {
+        partes.push(`<polyline points="${pts([[ox + 30, 410], [ox + 30, 380], [ox + 120, 380], [ox + 120, 300], [ox + 360, 300], [ox + 360, 170], [ox + 410, 170], [ox + 410, 104]])}" fill="none" stroke="var(--resaltador, #ffe14d)" stroke-width="20" stroke-linejoin="round" style="mix-blend-mode:multiply"/>`);
+      }
+    }
+    partes.push(`<circle cx="${ox + 36}" cy="60" r="26" fill="#fff" stroke="#000" stroke-width="2"/><text x="${ox + 36}" y="60" font-size="26" class="eje__texto">${i + 1}</text>`);
+    if (i < 2) partes.push(`<line x1="${ox + 440}" y1="250" x2="${ox + 520}" y2="250" stroke="#000" stroke-width="2"/><path d="M ${ox + 520} 250 l -14 -8 v 16 Z" fill="#000"/>`);
+  });
+  return svg('0 0 1500 460', partes.join(''), { etiqueta: 'Diagrama: reunir, apilar y desplazar', clase: 'dibujo dibujo--diagrama' });
+}

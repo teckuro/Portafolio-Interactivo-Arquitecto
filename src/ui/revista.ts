@@ -1,11 +1,13 @@
 import { verificar } from '../core/checks';
 import { componer, construirSumario } from '../core/composer';
+import { renderArte } from '../drawings';
 import { esc } from '../drawings/svg';
 import { LAYOUTS } from '../layouts';
 import type { EntradaSumario, Pieza, Portafolio, Spread } from '../model/types';
 import { marcarCota, renderCota } from './cota';
 import { abrirAmpliacion, abrirContenido, abrirProceso, abrirVerificacion } from './dialogos';
 import { conectarDeslizamiento, conectarTeclado, type Navegable } from './gestos';
+import type { ControlModelo } from './modelo3d';
 
 type Modo = 'spread' | 'pagina';
 
@@ -38,6 +40,7 @@ export class Revista implements Navegable {
   private aviso!: HTMLElement;
   private posicion!: HTMLElement;
   private dialogo!: HTMLDialogElement;
+  private modelo: ControlModelo | null = null;
 
   constructor(private readonly raiz: HTMLElement, private readonly portafolio: Portafolio) {
     this.spreads = componer(portafolio);
@@ -56,8 +59,11 @@ export class Revista implements Navegable {
     this.posicion = this.raiz.querySelector('.posicion')!;
     this.dialogo = this.raiz.querySelector('dialog')!;
 
+    document.title = `${this.portafolio.autor.nombre}, portafolio de arquitectura`;
     this.raiz.addEventListener('click', (e) => this.alHacerClic(e));
     this.conectarLlamadas();
+    this.conectarPisos();
+    void this.montarModelo();
     conectarTeclado(this);
     conectarDeslizamiento(this.escenario, this);
     new ResizeObserver(() => this.medir()).observe(this.escenario);
@@ -172,6 +178,12 @@ export class Revista implements Navegable {
       anterior: () => this.anterior(),
       contenido: () => abrirContenido(this.dialogo, this.sumario, this.total),
       imprimir: () => window.print(),
+      separar: () => {
+        const separado = el.getAttribute('aria-pressed') !== 'true';
+        el.setAttribute('aria-pressed', String(separado));
+        el.textContent = separado ? 'Unir pisos' : 'Separar pisos';
+        this.modelo?.separar(separado);
+      },
       cerrar: () => this.dialogo.close(),
       verificar: () => abrirVerificacion(this.dialogo, verificar(this.portafolio, this.spreads)),
       ampliar: () => {
@@ -207,6 +219,37 @@ export class Revista implements Navegable {
       this.raiz
         .querySelectorAll(`.pagina[data-spread="${pagina.dataset.spread}"] [data-llamada="${n}"]`)
         .forEach((x) => x.classList.toggle('esta-enlazada', activo));
+    };
+    for (const [tipo, activo] of [['pointerover', true], ['pointerout', false], ['focusin', true], ['focusout', false]] as const) {
+      this.pliego.addEventListener(tipo, (e) => alternar(e, activo));
+    }
+  }
+
+  /** El modelo 3D (three.js) se carga aparte, solo si la portada lo usa. */
+  private async montarModelo(): Promise<void> {
+    const contenedor = this.raiz.querySelector<HTMLElement>('[data-modelo3d]');
+    const proyecto = this.portafolio.proyectos.find((p) => p.id === contenedor?.dataset.modelo3d);
+    if (!contenedor || !proyecto?.modelo) return;
+    const hero = proyecto.piezas.find((p) => p.nivel === 1);
+    const { montarModelo3D } = await import('./modelo3d');
+    this.modelo = montarModelo3D(contenedor, proyecto.modelo, {
+      respaldo: hero ? renderArte(hero) : '',
+      alResaltar: (n) => this.marcarPiso(n),
+    });
+  }
+
+  private marcarPiso(n: number | null): void {
+    this.raiz.querySelectorAll<HTMLElement>('[data-piso]').forEach((el) => el.classList.toggle('esta-enlazada', Number(el.dataset.piso) === n));
+  }
+
+  /** Lista de pisos ↔ modelo 3D: apuntar una fila destaca el piso. */
+  private conectarPisos(): void {
+    const alternar = (e: Event, activo: boolean) => {
+      const fila = (e.target as Element).closest<HTMLElement>('[data-piso]');
+      if (!fila) return;
+      const n = activo ? Number(fila.dataset.piso) : null;
+      this.marcarPiso(n);
+      this.modelo?.resaltar(n);
     };
     for (const [tipo, activo] of [['pointerover', true], ['pointerout', false], ['focusin', true], ['focusout', false]] as const) {
       this.pliego.addEventListener(tipo, (e) => alternar(e, activo));

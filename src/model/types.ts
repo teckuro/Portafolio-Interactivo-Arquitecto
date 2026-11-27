@@ -81,16 +81,26 @@ export interface EspecPlanta {
   norte?: number;
 }
 
-export type Escena = 'cerro' | 'cerro-tarde' | 'escalera' | 'terraza' | 'mercado' | 'pabellon' | 'conjunto' | 'concurso';
+export type Escena =
+  | 'cerro'
+  | 'cerro-tarde'
+  | 'escalera'
+  | 'terraza'
+  | 'mercado'
+  | 'pabellon'
+  | 'conjunto'
+  | 'concurso'
+  | 'centro-cultural'
+  | 'centro-cultural-tarde';
 
 export type EspecArte =
   | EspecPlanta
-  | { k: 'corte'; variante: 'pendiente' | 'mercado' }
+  | { k: 'corte'; variante: 'pendiente' | 'mercado' | 'cultural' }
   | { k: 'detalle' }
-  | { k: 'diagrama'; variante: 'pendiente' }
+  | { k: 'diagrama'; variante: 'pendiente' | 'apilado' }
   | { k: 'ilustracion'; escena: Escena }
   | { k: 'croquis'; escena: 'cerro' | 'chiloe' }
-  | { k: 'maqueta'; escena: 'pendiente' };
+  | { k: 'maqueta'; escena: 'pendiente' | 'apilado' };
 
 // ---------------------------------------------------------------------------
 // Contenido
@@ -109,6 +119,35 @@ export interface Pieza {
   llamada?: number;
   /** Proporción ancho / alto, para la versión móvil. */
   proporcion?: number;
+}
+
+// ---------------------------------------------------------------------------
+// Modelo 3D (portada interactiva)
+// ---------------------------------------------------------------------------
+
+export interface VolumenModelo {
+  /** Esquina en planta (m): x hacia el oriente, z hacia el sur. */
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+  tipo?: 'macizo' | 'vidrio' | 'terraza';
+  /** Detalle de fachada sur. */
+  fachada?: 'franja' | 'celosia';
+}
+
+export interface PisoModelo {
+  n: number;
+  programa: string;
+  /** Altura de piso a piso (m). */
+  altura: number;
+  volumenes: VolumenModelo[];
+}
+
+export interface Modelo3D {
+  terreno: { w: number; d: number };
+  nucleo: { x: number; z: number; w: number; d: number };
+  pisos: PisoModelo[];
 }
 
 export interface Ficha {
@@ -136,6 +175,8 @@ export interface Proyecto {
   /** Tipología, para alternar el orden (PS-R3). */
   tipologia: string;
   ficha: Ficha;
+  /** Modelo 3D para la portada (solo el proyecto pico). */
+  modelo?: Modelo3D;
   /** Qué hizo el autor, en concreto (refuerza el rol, PAR-R3). */
   aportes?: string[];
   /** Leyenda de recintos en la misma página que la planta (RR-R3). */

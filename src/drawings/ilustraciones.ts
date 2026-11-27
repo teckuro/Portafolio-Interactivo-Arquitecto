@@ -259,6 +259,114 @@ function concurso(): string {
   return partes.join('');
 }
 
+
+interface PaletaCiudad {
+  cielo: [string, string];
+  cerros: string;
+  ciudad: string;
+  luz: string;
+  vidrio: string;
+  muro: string;
+  sombra: string;
+  plaza: string;
+}
+
+const CIUDAD_DIA: PaletaCiudad = {
+  cielo: ['#b7cfdc', '#eef1ee'],
+  cerros: '#aab8b2',
+  ciudad: '#c9ccc6',
+  luz: '#f3d9a0',
+  vidrio: '#3c4c56',
+  muro: '#f5f5f1',
+  sombra: '#d2d3cc',
+  plaza: '#d9d5cb',
+};
+
+const CIUDAD_TARDE: PaletaCiudad = {
+  cielo: ['#e59f78', '#f6dcc4'],
+  cerros: '#b39892',
+  ciudad: '#c7aea2',
+  luz: '#ffd36b',
+  vidrio: '#3b3a48',
+  muro: '#f3e6d8',
+  sombra: '#caa999',
+  plaza: '#d8c3b2',
+};
+
+/** Centro cultural: cinco volúmenes apilados y desplazados sobre una plaza. */
+function centroCultural(p: PaletaCiudad): string {
+  const id = uid('cc');
+  const r = aleatorio(21);
+  const partes: string[] = [`<defs><linearGradient id="${id}-c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${p.cielo[0]}"/><stop offset="1" stop-color="${p.cielo[1]}"/></linearGradient></defs>`];
+  partes.push(`<rect width="1600" height="1000" fill="url(#${id}-c)"/>`);
+  partes.push(`<polygon points="0,560 260,470 520,520 820,440 1120,500 1400,430 1600,480 1600,700 0,700" fill="${p.cerros}"/>`);
+  // Ciudad de fondo
+  for (let i = 0; i < 26; i++) {
+    const x = i * 64 - 20 + r() * 20;
+    const h = 60 + r() * 120;
+    partes.push(`<rect x="${x}" y="${700 - h}" width="${52 + r() * 20}" height="${h}" fill="${p.ciudad}"/>`);
+  }
+  // Plaza y calle
+  partes.push(`<rect y="760" width="1600" height="240" fill="${p.plaza}"/><rect y="930" width="1600" height="70" fill="#8e908c"/>`);
+  for (let i = 0; i < 18; i++) partes.push(`<line x1="${i * 100}" y1="760" x2="${i * 100 - 120}" y2="930" stroke="#c9c4b8" stroke-width="2"/>`);
+
+  // Pisos: [x0, x1, yTop, yBase, tipo]
+  const pisos: [number, number, number, number, string][] = [
+    [560, 1080, 640, 760, 'vidrio'],
+    [470, 1000, 500, 640, 'macizo'],
+    [640, 1240, 410, 500, 'franja'],
+    [520, 1040, 320, 410, 'celosia'],
+    [620, 920, 230, 320, 'franja'],
+  ];
+  // El edificio se dibuja desplazado a la mitad derecha: no cruza el lomo del spread
+  partes.push('<g transform="translate(330 0)">');
+  // Núcleo
+  partes.push(`<rect x="780" y="206" width="80" height="560" fill="${p.sombra}"/>`);
+  pisos.forEach(([x0, x1, y0, y1, tipo], i) => {
+    const alto = y1 - y0;
+    if (tipo === 'vidrio') {
+      partes.push(`<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${alto}" fill="${p.vidrio}"/>`);
+      for (let k = 0; k < 9; k++) partes.push(`<rect x="${x0 + 20 + k * 56}" y="${y0 + 26}" width="30" height="${alto - 40}" fill="${p.luz}" opacity="${0.35 + r() * 0.5}"/>`);
+      for (let k = 0; k <= 13; k++) partes.push(`<line x1="${x0 + k * 40}" y1="${y0}" x2="${x0 + k * 40}" y2="${y1}" stroke="#20292e" stroke-width="2"/>`);
+    } else {
+      partes.push(`<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="${alto}" fill="${p.muro}"/>`);
+      partes.push(`<rect x="${x1}" y="${y0 + 8}" width="16" height="${alto - 8}" fill="${p.sombra}"/>`);
+      if (tipo === 'franja') partes.push(`<rect x="${x0 + 18}" y="${y0 + alto * 0.32}" width="${x1 - x0 - 36}" height="${alto * 0.36}" fill="${p.vidrio}"/>`);
+      if (tipo === 'celosia') for (let k = 0; k < (x1 - x0) / 22; k++) partes.push(`<rect x="${x0 + 6 + k * 22}" y="${y0 + 8}" width="7" height="${alto - 16}" fill="${p.sombra}"/>`);
+      if (tipo === 'macizo') for (let k = 0; k < (x1 - x0) / 14; k++) partes.push(`<line x1="${x0 + k * 14}" y1="${y0}" x2="${x0 + k * 14}" y2="${y1}" stroke="${p.sombra}" stroke-width="1.5"/>`);
+    }
+    // Sombra bajo los voladizos
+    if (i > 0) {
+      const [bx0, bx1] = pisos[i - 1];
+      if (x0 < bx0) partes.push(`<rect x="${x0}" y="${y1}" width="${bx0 - x0}" height="10" fill="#000" opacity=".14"/>`);
+      if (x1 > bx1) partes.push(`<rect x="${bx1}" y="${y1}" width="${x1 - bx1}" height="10" fill="#000" opacity=".14"/>`);
+    }
+    partes.push(`<rect x="${x0}" y="${y0}" width="${x1 - x0}" height="5" fill="#4a4f52"/>`);
+  });
+  // Terraza mirador con baranda y personas
+  partes.push(`<rect x="920" y="314" width="200" height="6" fill="#4a4f52"/><line x1="920" y1="290" x2="1120" y2="290" stroke="#4a4f52" stroke-width="3"/>`);
+  for (let k = 0; k <= 10; k++) partes.push(`<line x1="${920 + k * 20}" y1="290" x2="${920 + k * 20}" y2="314" stroke="#4a4f52" stroke-width="1.5"/>`);
+  for (const x of [960, 1010, 1080]) partes.push(`<g fill="#2e3134"><circle cx="${x}" cy="272" r="6"/><rect x="${x - 6}" y="278" width="12" height="30" rx="5"/></g>`);
+  // Escalera pública por la fachada oriente
+  const tramo: [number, number][] = [];
+  for (let k = 0; k < 9; k++) {
+    const y = 760 - k * 52;
+    tramo.push([k % 2 ? 1250 : 1110, y], [k % 2 ? 1110 : 1250, y - 52]);
+  }
+  partes.push(`<polyline points="${pts(tramo.slice(0, 15))}" fill="none" stroke="#4a4f52" stroke-width="5"/>`);
+  partes.push('</g>');
+  // Árboles y personas en la plaza
+  for (const [x, rr] of [[160, 90], [300, 70], [560, 100], [700, 80]] as const) {
+    partes.push(`<rect x="${x - 7}" y="${770 - rr}" width="14" height="${rr}" fill="#6b5a4a"/><circle cx="${x}" cy="${770 - rr * 1.25}" r="${rr * 0.7}" fill="#6f8f5c" opacity=".93"/>`);
+  }
+  for (let i = 0; i < 16; i++) {
+    const x = 120 + r() * 1360;
+    const y = 800 + r() * 110;
+    partes.push(`<g fill="#2e3134" opacity=".88"><circle cx="${x}" cy="${y - 44}" r="8"/><rect x="${x - 8}" y="${y - 36}" width="16" height="40" rx="6"/></g>`);
+  }
+  return partes.join('');
+}
+
 export function ilustracion(escena: Escena): { svg: string; vb: string } {
   switch (escena) {
     case 'cerro': return { svg: cerro(DIA), vb: '0 0 1600 1000' };
@@ -269,6 +377,8 @@ export function ilustracion(escena: Escena): { svg: string; vb: string } {
     case 'pabellon': return { svg: pabellon(), vb: '0 0 1400 1000' };
     case 'conjunto': return { svg: conjunto(), vb: '0 0 1400 1000' };
     case 'concurso': return { svg: concurso(), vb: '0 0 1300 1000' };
+    case 'centro-cultural': return { svg: centroCultural(CIUDAD_DIA), vb: '0 0 1600 1000' };
+    case 'centro-cultural-tarde': return { svg: centroCultural(CIUDAD_TARDE), vb: '0 0 1600 1000' };
   }
 }
 
@@ -309,7 +419,8 @@ export function dibujarCroquis(escena: 'cerro' | 'chiloe', etiqueta: string): st
 }
 
 /** Maqueta de estudio: volúmenes blancos sobre base gris, con sombra suave. */
-export function dibujarMaqueta(etiqueta: string): string {
+export function dibujarMaqueta(etiqueta: string, escena: 'pendiente' | 'apilado' = 'pendiente'): string {
+  if (escena === 'apilado') return maquetaApilada(etiqueta);
   const id = uid('mq');
   const partes: string[] = [`<defs><radialGradient id="${id}-f" cx=".5" cy=".4" r=".8"><stop offset="0" stop-color="#d9d9d4"/><stop offset="1" stop-color="#8f908b"/></radialGradient></defs>`];
   partes.push(`<rect width="1300" height="1000" fill="url(#${id}-f)"/>`);
@@ -323,5 +434,31 @@ export function dibujarMaqueta(etiqueta: string): string {
     partes.push(`<polygon points="${pts([[x, y - 80], [x + 120, y - 128], [x + 190, y - 100], [x + 70, y - 52]])}" fill="#ffffff"/>`);
     partes.push(`<polygon points="${pts([[x + 190, y - 20], [x + 260, y + 10], [x + 190, y - 100]])}" fill="#000" opacity=".12"/>`);
   }
+  return svg('0 0 1300 1000', partes.join(''), { etiqueta, ajuste: 'slice', clase: 'dibujo dibujo--imagen' });
+}
+
+/** Maqueta del centro cultural: cinco cajas de balsa apiladas y desplazadas. */
+function maquetaApilada(etiqueta: string): string {
+  const id = uid('ma');
+  // Proyección isométrica simple: x hacia la derecha-abajo, z hacia la izquierda-abajo, y hacia arriba
+  const iso = (x: number, y: number, z: number): [number, number] => [620 + (x - z) * 9, 480 + (x + z) * 5.2 - y * 12];
+  const caja = (x: number, z: number, w: number, d: number, y0: number, h: number, tono = '#efe3c8') => {
+    const a = iso(x, y0 + h, z), b = iso(x + w, y0 + h, z), c = iso(x + w, y0 + h, z + d), e = iso(x, y0 + h, z + d);
+    const b0 = iso(x + w, y0, z), c0 = iso(x + w, y0, z + d), e0 = iso(x, y0, z + d);
+    return `<polygon points="${pts([a, b, c, e])}" fill="#fbf3df"/>
+      <polygon points="${pts([e, c, c0, e0])}" fill="${tono}"/>
+      <polygon points="${pts([c, b, b0, c0])}" fill="#d8c8a6"/>`;
+  };
+  const partes: string[] = [`<defs><radialGradient id="${id}-f" cx=".5" cy=".35" r=".85"><stop offset="0" stop-color="#e2e1db"/><stop offset="1" stop-color="#8f908b"/></radialGradient></defs><rect width="1300" height="1000" fill="url(#${id}-f)"/>`];
+  const base = [iso(-6, 0, -6), iso(48, 0, -6), iso(48, 0, 36), iso(-6, 0, 36)];
+  partes.push(`<polygon points="${pts(base.map(([x, y]) => [x, y + 14] as [number, number]))}" fill="#6d6e6a"/><polygon points="${pts(base)}" fill="#b5b1a6"/>`);
+  const pisos: [number, number, number, number, number][] = [
+    [5, 5, 26, 17, 5], [1, 3, 26, 21, 7], [9, 7, 34, 15, 4.5], [3, 4, 28, 18, 4.5], [7, 7, 17, 13, 4.5],
+  ];
+  let y = 0;
+  pisos.forEach(([x, z, w, d, h], i) => {
+    partes.push(caja(x, z, w, d, y, h, i === 0 ? '#d9cdb2' : '#efe3c8'));
+    y += h;
+  });
   return svg('0 0 1300 1000', partes.join(''), { etiqueta, ajuste: 'slice', clase: 'dibujo dibujo--imagen' });
 }

@@ -23,8 +23,16 @@
   .saltar,
   .figura__ampliar,
   .acciones,
+  .modelo3d__controles,
+  .modelo3d__etiquetas,
   dialog {
     display: none !important;
+  }
+
+  /* El lienzo 3D tiene la misma proporción que la página: se escala a la hoja */
+  .modelo3d > canvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .revista,

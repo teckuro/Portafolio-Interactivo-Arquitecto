@@ -12,7 +12,7 @@
 | **D · Rúbrica** | ¿Cómo puntuamos un portafolio de forma consistente? | [04-rubrica.md](04-rubrica.md) + [rubrica.csv](rubrica.csv) | — | ✅ Lista para usar |
 | **E · Síntesis** | ¿Qué reglas cambian? | [05-sintesis-ajustes.md](05-sintesis-ajustes.md) | — | 🟡 Ajustes del frente A propuestos |
 
-> 📄 **Propuesta para completar los frentes pendientes:** [06-propuesta-frentes-pendientes.md](06-propuesta-frentes-pendientes.md) — requiere aprobación (preguntas Q1–Q5).
+> 📄 **Propuesta para completar los frentes pendientes:** [06-propuesta-frentes-pendientes.md](06-propuesta-frentes-pendientes.md) — Ronda 2 omitida; quedan Q1 y Q5.
 
 ## Orden sugerido
 
@@ -25,5 +25,5 @@
 
 - [x] Límites reales de convocatorias documentados (frente A).
 - [ ] Al menos 3 revistas analizadas con la pauta (frente B).
-- [ ] Al menos 5 portafolios puntuados con la rúbrica, 3 de ellos de perfil A2 (frente C).
+- [ ] Al menos 5 portafolios **públicos** puntuados con la rúbrica, 3 de ellos de perfil A2 (frente C). *Ronda con material propio y prueba de 30 s omitida por decisión del autor/a.*
 - [ ] Tabla de ajustes cerrada: cada regla queda **confirmada**, **ajustada** o **descartada** (frente E).

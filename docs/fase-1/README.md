@@ -12,6 +12,8 @@
 | **D · Rúbrica** | ¿Cómo puntuamos un portafolio de forma consistente? | [04-rubrica.md](04-rubrica.md) + [rubrica.csv](rubrica.csv) | — | ✅ Lista para usar |
 | **E · Síntesis** | ¿Qué reglas cambian? | [05-sintesis-ajustes.md](05-sintesis-ajustes.md) | — | 🟡 Ajustes del frente A propuestos |
 
+> 📄 **Propuesta para completar los frentes pendientes:** [06-propuesta-frentes-pendientes.md](06-propuesta-frentes-pendientes.md) — requiere aprobación (preguntas Q1–Q5).
+
 ## Orden sugerido
 
 1. **A** está hecho: ya dejó ajustes concretos (ver E).

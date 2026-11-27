@@ -30,7 +30,11 @@ Construir un programa que:
 
 Las leyes se aplican sobre todo al **resultado** (lector). Algunas (Tesler, efecto por defecto, usuario activo) también guían el **proceso** (autor). Cada documento de ley lo indica.
 
-## Alcance v1 (propuesto)
+## Alcance v1
+
+**Formato:** portafolio **interactivo tipo revista**, navegable por spreads (dobles páginas), adaptado a móvil y exportable a PDF con la misma composición. Ver [08-revista-interactiva.md](08-revista-interactiva.md).
+
+**Perfil prioritario:** recién titulado/a (A2) que postula a oficinas (L1).
 
 **Dentro**
 - Plantillas de portafolio **individual**.

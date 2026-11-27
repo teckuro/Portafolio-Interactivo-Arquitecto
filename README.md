@@ -5,7 +5,7 @@
 
 ## Idea en una frase
 
-El arquitecto describe quién es, a quién le presenta el portafolio y qué proyectos tiene; el programa se encarga de la composición (orden, jerarquía, grilla, fichas, peso del archivo) y verifica el resultado con reglas medibles.
+El arquitecto describe quién es, a quién le presenta el portafolio y qué proyectos tiene; el programa compone una **revista interactiva** (spreads navegables, exportable a PDF), se encarga del orden, la jerarquía, la grilla, las fichas y el peso, y verifica el resultado con reglas medibles.
 
 ## Cómo leer este repositorio
 
@@ -17,8 +17,9 @@ El arquitecto describe quién es, a quién le presenta el portafolio y qué proy
 | 3 | [docs/03-leyes/](docs/03-leyes/README.md) | Las 15 leyes traducidas a arquitectura, con reglas y verificaciones | Borrador |
 | 4 | [docs/04-matriz-leyes-secciones.md](docs/04-matriz-leyes-secciones.md) | ¿Qué ley pesa más en cada sección? | Borrador |
 | 5 | [docs/05-descripcion-de-entrada.md](docs/05-descripcion-de-entrada.md) | ¿Qué tiene que decir la descripción para generar una buena plantilla? | Borrador |
-| 6 | [docs/06-decisiones-abiertas.md](docs/06-decisiones-abiertas.md) | Lo que falta decidir antes de codificar | **Requiere decisión** |
+| 6 | [docs/06-decisiones-abiertas.md](docs/06-decisiones-abiertas.md) | Qué está decidido y qué falta decidir | 5 cerradas · **11 pendientes** |
 | 7 | [docs/07-hoja-de-ruta.md](docs/07-hoja-de-ruta.md) | Fases hasta tener un programa funcionando | Borrador |
+| 8 | [docs/08-revista-interactiva.md](docs/08-revista-interactiva.md) | Formato revista: modelo de interacción, reglas `REV` e impacto en cada ley | Borrador |
 
 ## Convenciones
 

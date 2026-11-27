@@ -61,4 +61,4 @@ Campos en un orden fijo; los campos vacíos **se ocultan** (nunca se muestra "N/
 | **Muestra** (3–5 págs.) | Primer contacto / email | Derivada automáticamente del portafolio completo |
 | Web responsive | Clientes, presencia permanente | Requiere decisiones propias (navegación, carga) |
 
-> La elección de formato(s) para v1 está en [06-decisiones-abiertas.md](06-decisiones-abiertas.md) (D1, D2).
+> **Decidido (D1, D2):** v1 es una **revista interactiva** compuesta en spreads √2:1 (= A3 horizontal), dividida en páginas A4 verticales en móvil y exportable a PDF. Ver [08-revista-interactiva.md](08-revista-interactiva.md).

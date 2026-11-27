@@ -48,4 +48,4 @@
 
 ## Preguntas abiertas
 
-- ¿A3 horizontal o 16:9 como default para L1? El PDF se lee mayormente en pantalla (ver decisión D2).
+- Resuelto por D1/D2: el default para L1 es la **revista interactiva en spreads √2:1** + PDF exportado. Pendiente ajustar la tabla de defaults cuando se cierre D13.
